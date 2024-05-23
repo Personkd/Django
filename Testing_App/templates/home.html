@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block load %}
+{% endblock %}
+
+{% block content %}
+           {% if user.is_authenticated %}
+                    <p>{{user.username}}</p>
+                    <a href="/profile/{{ user.id }}">Переглянути профіль</a><br>
+                    <a href="/logout">Вийти з акаунту</a><br><br>
+                    <a href="/createpost">Створити пост</a>
+           {% else %}
+                    <a href="/login">Увійти в акаунт</a><br>
+                    <a href="/registration">Зареєструватися</a>
+           {% endif %}
+          <p>{{ name }}</p>
+           {% for i in form %}
+                    <br><p>{{i.user}}</p>
+                    <p>{{i.added_at}}</p>
+                    <p>{{i.text}}</p>
+                     <a href="/post/{{ i.id }}">Подробиці публікації</a><br>
+           {% endfor %}
+{% endblock %}

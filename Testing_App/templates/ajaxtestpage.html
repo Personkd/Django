@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/static/js/ajaxtest.js"></script>
+</head>
+<body>
+    {% csrf_token %}
+    <input type="text" id="username" placeholder="Введіть ім'я"><br><br>
+    <input type="password" id="password" placeholder="Введіть пароль"><br><br>
+    <input type="password" id="password_confirm" placeholder="Підтвердіть пароль"><br><br>
+    <input id="button" type="submit" value="Зберегти">
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block load %}
+{% endblock %}
+
+{% block content %}
+          <p>Username: {{ user.username }}</p>
+          <p>Email {{ user.email }}</p>
+          <p>Bio: {{ user.bio }}</p>
+          <p>Profile Image: {{ user.profile_photo }}</p><br><br>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.username }}<br>
+                {{ form.email }}<br>
+                {{ form.bio }}<br>
+                <img src=form.picture><br>
+                <button type="submit">Зберегти зміни</button>
+            </form>
+           {% for i in posts %}
+                    <br><p>{{i.added_at}}</p>
+                    <p>{{i.text}}</p>
+                     <a href="/post/{{ i.id }}">Подробиці публікації</a><br>
+           {% endfor %}
+{% endblock %}
