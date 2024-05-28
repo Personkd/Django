@@ -128,14 +128,13 @@ class  CommentFormPage(TemplateView):
         print (data)
 
         # Оновлення поста
-            #if data.get("updated_post") != None:
-            # new_text=data.get("updated_post")
-            #Posts.objects.filter(id=kwargs["pk"]).update(text=new_text)
-            #return redirect('/')
+        if data.get("updated_post") is not None:
+            new_text=data.get("updated_post")
+            Posts.objects.filter(id=kwargs["pk"]).update(text=new_text)
+            return redirect('/')
 
         #Створення коментаря
-        #elif data.get("new_text") != None:
-        if data==data:
+        elif data.get("new_text") is not None:
             comment = Comments(text=data.get('new_text'), added_at=datetime.datetime.now(), user=request.user, post=Posts.objects.filter(id=self.kwargs["pk"]))
             comment.save()
             template = render_to_string("comment_base.html", comment)

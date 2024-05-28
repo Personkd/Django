@@ -1,8 +1,16 @@
-{% extends "base.html" %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
     <script src="/static/js/new_comment_creation_on_post_page.js"></script>
-{% block content %}
-    <form method="post" action = "/create_comment/{{ post.id }}/">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+          <div>
+                    <a href = "/">Home</a>
+          </div>
+          <hr>
           {% csrf_token %}
           {{ form.instance.user }}<br>
           {{ post.added_at }}
@@ -11,15 +19,13 @@
                 <input id="text_of_updated_post" type="text" name="post" placeholder="Оновити пост">
                 <br><input id="update_post" type="submit" value="Зберегти новий текст поста" data-page="/create_comment/<int:pk>/">
          {% endif %}<br><br>
-    </form>
-    <form method="post" action = "/create_comment/{{ post.id }}/">
         {% csrf_token %}
         <input id="text_of_new_comment" type="text" name="text" placeholder="Коментувати"><br>
-        <input id="create_new_comment" type="submit" value = "Зберегти коментар" data-page="/create_comment/<int:pk>/">
-    </form>
-    {% for comment in comments %}
-        <p>{{ comment.user }}</p>
-        <p>{{ comment.added_at }}</p>
-        <p>{{ comment.text }}</p>
-    {% endfor %}
-{% endblock %}
+          <input id="create_new_comment" type="submit" value = "Зберегти коментар" data-page="/create_comment/<int:pk>/">
+        {% for comment in comments %}
+            <p>{{ comment.user }}</p>
+            <p>{{ comment.added_at }}</p>
+            <p>{{ comment.text }}</p>
+        {% endfor %}
+</body>
+</html>
