@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/static/js/new_comment_creation_on_post_page.js"></script>
+    <script src="/static/js/comment_creation.js"></script>
 </head>
 <body>
           <div>
@@ -16,16 +16,18 @@
           {{ post.added_at }}
           <br><br>{{ post.text }}<br><br>
           {% if  request.user == user %}
-                <input id="text_of_updated_post" type="text" name="post" placeholder="Оновити пост">
-                <br><input id="update_post" type="submit" value="Зберегти новий текст поста" data-page="/create_comment/<int:pk>/">
+                <input id="text_of_updated_post" type="text" name="post" placeholder="Оновити пост"><br>
+                <input id="update_post" type="submit" value="Зберегти новий текст поста" data-page="/create_comment/{{ post.id }}/">
          {% endif %}<br><br>
-        {% csrf_token %}
-        <input id="text_of_new_comment" type="text" name="text" placeholder="Коментувати"><br>
-          <input id="create_new_comment" type="submit" value = "Зберегти коментар" data-page="/create_comment/<int:pk>/">
-        {% for comment in comments %}
-            <p>{{ comment.user }}</p>
-            <p>{{ comment.added_at }}</p>
-            <p>{{ comment.text }}</p>
-        {% endfor %}
+         {% csrf_token %}
+         <input id="text_of_new_comment" type="text" name="text" placeholder="Коментувати"><br>
+         <input id="create_new_comment" type="submit" value = "Зберегти коментар" data-page="/create_comment/{{ post.id }}/">
+         {% for comment in comments %}
+          <hr>
+          <p>{{ comment.user }}</p>
+          <p>{{ comment.added_at }}</p>
+          <p>{{ comment.text }}</p>
+          <hr>
+         {% endfor %}
 </body>
 </html>

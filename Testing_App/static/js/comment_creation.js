@@ -9,9 +9,9 @@ function sendData_comment(){
                 'new_text': $('#text_of_new_comment').val()
             },
             'success': function(template){
-                document.getElementById('comments').innerHTML += template
+                document.getElementById('comments').innerHTML += template;
             }
-        })
+        });
     })
 }
 
@@ -33,5 +33,6 @@ function sendData_post(){
 }
 
 $(document).ready(function(){
-    sendData();
+    sendData_comment();
+    sendData_post();
 })
