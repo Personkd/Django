@@ -10,24 +10,29 @@
           <div>
                     <a href = "/">Home</a>
           </div>
-          <hr>
+          <hr color="green">
           {% csrf_token %}
-          {{ form.instance.user }}<br>
-          {{ post.added_at }}
-          <br><br>{{ post.text }}<br><br>
+          {{ post.user }}<br>
+          {{ post.added_at }}<br><br>
+          <div id="text">
+            {{ post.text }}<br><br>
+          </div>
           {% if  request.user == user %}
                 <input id="text_of_updated_post" type="text" name="post" placeholder="Оновити пост"><br>
-                <input id="update_post" type="submit" value="Зберегти новий текст поста" data-page="/create_comment/{{ post.id }}/">
+                <input id="update_post" type="submit" value="Зберегти новий текст поста" data-page="/update_post/{{ post.id }}/">
          {% endif %}<br><br>
          {% csrf_token %}
          <input id="text_of_new_comment" type="text" name="text" placeholder="Коментувати"><br>
          <input id="create_new_comment" type="submit" value = "Зберегти коментар" data-page="/create_comment/{{ post.id }}/">
-         {% for comment in comments %}
-          <hr>
-          <p>{{ comment.user }}</p>
-          <p>{{ comment.added_at }}</p>
-          <p>{{ comment.text }}</p>
-          <hr>
-         {% endfor %}
+          <hr color="green">
+          <div id="comments">
+            {% for i in comments %}
+            <hr color="green">
+            <p>{{ i.user }}</p>
+            <p>{{ i.added_at }}</p>
+            <p>{{ i.text }}</p>
+            <hr color="green">
+            {% endfor %}
+          </div>
 </body>
 </html>

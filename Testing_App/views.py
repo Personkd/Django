@@ -110,7 +110,6 @@ class  PostFormPage(TemplateView):
     template_name="Post.html"
     form_class=PostForm
     model=Posts
-
     def get_success_url(self):
         return f'/'
     def get_context_data(self,**kwargs):
@@ -130,17 +129,18 @@ class  CommentFormPage(TemplateView):
         # Оновлення поста
         if data.get("updated_post") is not None:
             new_text=data.get("updated_post")
-            Posts.objects.get(id=kwargs["pk"]).update(text=new_text)
-            return redirect('/')
+            post =  Posts.objects.get(id=kwargs["pk"])
+            post.update(text=new_text)
+            template = render_to_string("post_base.html", {"new_text": new_text})
+            return JsonResponse(template, safe=False)
 
         #Створення коментаря
         elif data.get("new_text") is not None:
             user=User.objects.get(id=self.kwargs["pk"])
             post=Posts.objects.get(id=self.kwargs["pk"])
-            commentary = Comments(text=data.get('new_text'), added_at=datetime.datetime.now(), user=user, post=post)
-            commentary.save()
-            comment={1:commentary}
-            template = render_to_string("comment_base.html", comment)
+            comment = Comments(text=data.get('new_text'), added_at=datetime.datetime.now(), user=user, post=post)
+            comment.save()
+            template = render_to_string("comment_base.html", {"comment" : comment})
             return JsonResponse(template, safe=False)
 
     def get_success_url(self):

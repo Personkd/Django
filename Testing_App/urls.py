@@ -18,5 +18,6 @@ urlpatterns = [
     #path('post/<int:id>', views.post, name='certainpostpage'),
     path('post/<int:pk>/',views.PostFormPage.as_view()),
     path('create_comment/<int:pk>/', views.CommentFormPage.as_view()),
+    path('update_post/<int:pk>/', views.CommentFormPage.as_view()),
     path('profile/<int:pk>/', views.UpdateProfile.as_view(), name='profileView')
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

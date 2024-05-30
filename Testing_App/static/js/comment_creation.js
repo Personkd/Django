@@ -25,10 +25,10 @@ function sendData_post(){
                 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                 'updated_post': $('#text_of_updated_post').val()
             },
-            'success': function(data){
-                alert(data.status);
+            'success': function(template){
+                document.getElementById('text').innerHTML = template;
             }
-        })
+        });
     })
 }
 
