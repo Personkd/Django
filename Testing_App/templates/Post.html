@@ -15,7 +15,7 @@
           {{ post.user }}<br>
           {{ post.added_at }}<br><br>
           <div id="text">
-            {{ post.text }}<br><br>
+                {{ post.text }}<br><br>
           </div>
           {% if  request.user == user %}
                 <input id="text_of_updated_post" type="text" name="post" placeholder="Оновити пост"><br>
