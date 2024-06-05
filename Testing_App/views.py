@@ -116,7 +116,6 @@ class  PostFormPage(TemplateView):
         context = super().get_context_data(**kwargs)
         context["post"]=Posts.objects.get(id=self.kwargs["pk"])
         context["comments"]=Comments.objects.filter(post=Posts.objects.get(id=self.kwargs["pk"]))
-        response=  render_block_to_string("Post.html","text")
         return context
 
 
@@ -141,7 +140,8 @@ class  UpdatePostPage(TemplateView):
         new_text=data.get("post")
         post =  Posts.objects.filter(id=kwargs["pk"])
         post.update(text=new_text)
-        return render(request, 'Post.html', {"post":post})
+        response = render_block_to_string("Post.html","text")
+        return JsonResponse(response, safe=False)
 
 #сторінка профілю та його оновлення
 class  UpdateProfile(UpdateView):
