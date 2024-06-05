@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import ajaxtestpage
 
+
 urlpatterns = [
     path('', views.HomePage.as_view(), name = 'home'),
     path('jstest/', views.JStest, name='jstest'),

@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from .models import Posts,Comments,User
 from django.views.generic.base import TemplateView
-#from django.views.generic.base import DetailView
+from render_block import render_block_to_string
 from django.http import JsonResponse
 import datetime
 
@@ -116,6 +116,7 @@ class  PostFormPage(TemplateView):
         context = super().get_context_data(**kwargs)
         context["post"]=Posts.objects.get(id=self.kwargs["pk"])
         context["comments"]=Comments.objects.filter(post=Posts.objects.get(id=self.kwargs["pk"]))
+        response=  render_block_to_string("Post.html","text")
         return context
 
 
@@ -136,9 +137,11 @@ class  UpdatePostPage(TemplateView):
     template_name="Post.html"
     def  post(self,request,**kwargs):
         data=request.POST
-        new_text=data.get("updated_post")
-        post =  Posts.objects.get(id=kwargs["pk"])
+        print(data)
+        new_text=data.get("post")
+        post =  Posts.objects.filter(id=kwargs["pk"])
         post.update(text=new_text)
+        return render(request, 'Post.html', {"post":post})
 
 #сторінка профілю та його оновлення
 class  UpdateProfile(UpdateView):
