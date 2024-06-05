@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from .models import Posts,Comments,User
 from django.views.generic.base import TemplateView
 from render_block import render_block_to_string
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import datetime
 
 #def home (request):
@@ -141,7 +141,7 @@ class  UpdatePostPage(TemplateView):
         post =  Posts.objects.filter(id=kwargs["pk"])
         post.update(text=new_text)
         response = render_block_to_string("Post.html","text")
-        return JsonResponse(response, safe=False)
+        return HttpResponse(response)
 
 #сторінка профілю та його оновлення
 class  UpdateProfile(UpdateView):
