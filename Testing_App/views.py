@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
-from .forms import Registration,Login,PostForm,Changepost,Comments,UpdateProfile
+from .forms import Registration,Login,PostForm,Comments,UpdateProfile
 from  django.contrib.auth import authenticate, login, logout
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView,UpdateView
@@ -119,36 +119,26 @@ class  PostFormPage(TemplateView):
         return context
 
 
-#Створення коментарів та оновлення постів
-class  CommentFormPage(TemplateView):
+#Створення коментарів
+class  CommentPage(TemplateView):
     template_name="Post.html"
     def  post(self,request,**kwargs):
         data=request.POST
-        print (data.get("new_text"))
+        user=User.objects.get(id=self.kwargs["pk"])
+        post=Posts.objects.get(id=self.kwargs["pk"])
+        comment = Comments(text=data.get('new_text'), added_at=datetime.datetime.now(), user=user, post=post)
+        comment.save()
+        template = render_to_string("comment_base.html", {"comment" : Comments.objects.filter(post=post)})
+        return JsonResponse(template, safe=False)
 
-        # Оновлення поста
-        if data.get("updated_post") is not None:
-            new_text=data.get("updated_post")
-            post =  Posts.objects.get(id=kwargs["pk"])
-            post.update(text=new_text)
-            template = render_to_string("post_base.html", {"new_text": new_text})
-            return JsonResponse(template, safe=False)
-
-        #Створення коментаря
-        elif data.get("new_text") is not None:
-            user=User.objects.get(id=self.kwargs["pk"])
-            post=Posts.objects.get(id=self.kwargs["pk"])
-            comment = Comments(text=data.get('new_text'), added_at=datetime.datetime.now(), user=user, post=post)
-            comment.save()
-            template = render_to_string("comment_base.html", {"comment" : comment})
-            return JsonResponse(template, safe=False)
-
-    def get_success_url(self):
-        return f'/post/{self.request.GET["post"]}'
-    def form_valid(self,form):
-        form.instance.user=self.request.user
-        form.instance.post=Posts.objects.get(id=self.kwargs["id"])
-        return super().form_valid(form)
+#Оновлення поста
+class  UpdatePostPage(TemplateView):
+    template_name="Post.html"
+    def  post(self,request,**kwargs):
+        data=request.POST
+        new_text=data.get("updated_post")
+        post =  Posts.objects.get(id=kwargs["pk"])
+        post.update(text=new_text)
 
 #сторінка профілю та його оновлення
 class  UpdateProfile(UpdateView):

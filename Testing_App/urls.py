@@ -15,9 +15,8 @@ urlpatterns = [
     path('login/', views.logining, name='login'),
     path('logout/', views.loggingout, name='logout'),
     path('createpost/', views.createpost, name='createpost'),
-    #path('post/<int:id>', views.post, name='certainpostpage'),
     path('post/<int:pk>/',views.PostFormPage.as_view()),
-    path('create_comment/<int:pk>/', views.CommentFormPage.as_view()),
-    path('update_post/<int:pk>/', views.CommentFormPage.as_view()),
+    path('create_comment/<int:pk>/', views.CommentPage.as_view(),name="comment_creation"),
+    path('update_post/<int:pk>/', views.UpdatePostPage.as_view(),name="post_editing"),
     path('profile/<int:pk>/', views.UpdateProfile.as_view(), name='profileView')
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

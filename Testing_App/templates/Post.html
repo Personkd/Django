@@ -5,6 +5,7 @@
     <title>{{ title }}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/static/js/comment_creation.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
 </head>
 <body>
           <div>
@@ -19,11 +20,21 @@
           </div>
           {% if  request.user == user %}
                 <input id="text_of_updated_post" type="text" name="post" placeholder="Оновити пост"><br>
-                <input id="update_post" type="submit" value="Зберегти новий текст поста" data-page="/update_post/{{ post.id }}/">
+                <input id="update_post" type="submit" value="Зберегти новий текст поста" data-url = "{% url 'post_editing' post.id%}"
+                    hx-trigger="click"
+                    hx-post="{% url  'post_editing' post.id %}"
+                    hx-include="#text_of_updated_post, [name = 'csrfmiddlewaretoken']"
+                    hx-target="#text"
+                >
          {% endif %}<br><br>
          {% csrf_token %}
          <input id="text_of_new_comment" type="text" name="text" placeholder="Коментувати"><br>
-         <input id="create_new_comment" type="submit" value = "Зберегти коментар" data-page="/create_comment/{{ post.id }}/">
+         <input id="create_new_comment" type="submit" value = "Зберегти коментар" data-url = "{% url 'comment_creation' post.id%}"
+            hx-trigger="click"
+            hx-post="{% url  'comment_creation' post.id %}"
+            hx-include="#text_of_new_comment, [name = 'csrfmiddlewaretoken']"
+            hx-target="#comments"
+         >
           <hr color="green">
           <div id="comments">
             {% for i in comments %}

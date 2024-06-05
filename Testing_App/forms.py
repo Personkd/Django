@@ -16,9 +16,6 @@ class PostForm(forms.ModelForm):
         model = Posts
         fields = ["text"]
 
-class Changepost(forms.Form):
-    new_text = forms.CharField(label="Новий текст посту",max_length=750)
-
 class Comments(forms.Form):
     text = forms.CharField(label="Коментар",max_length=750)
 

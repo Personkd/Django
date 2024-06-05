@@ -15,24 +15,6 @@ function sendData_comment(){
     })
 }
 
-function sendData_post(){
-    $("#update_post").click(function (){
-        $.ajax($("update_post").data('page'), {
-            'type': 'POST',
-            'async': true,
-            'dataType': 'json',
-            'data': {
-                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
-                'updated_post': $('#text_of_updated_post').val()
-            },
-            'success': function(template){
-                document.getElementById('text').innerHTML = template;
-            }
-        });
-    })
-}
-
 $(document).ready(function(){
     sendData_comment();
-    sendData_post();
 })
