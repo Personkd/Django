@@ -15,9 +15,11 @@
            {% endif %}
           <p>{{ name }}</p>
            {% for i in form %}
-                    <br><p>{{i.user}}</p>
-                    <p>{{i.added_at}}</p>
-                    <p>{{i.text}}</p>
-                     <a href="/post/{{ i.id }}">Подробиці публікації</a><br>
+            <hr color="green">
+                <br><p>{{i.user}}</p>
+                <p>{{i.added_at}}</p>
+                <p>{{i.text}}</p>
+                <a href="/post/{{ i.id }}">Подробиці публікації</a><br>
+            <hr color="green">
            {% endfor %}
 {% endblock %}

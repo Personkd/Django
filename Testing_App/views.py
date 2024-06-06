@@ -137,7 +137,7 @@ class  UpdatePostPage(TemplateView):
     template_name="Post.html"
     def  post(self,request,**kwargs):
         data=request.POST
-        new_text=data.get("text")
+        new_text=data.get("post")
         post =  Posts.objects.filter(id=kwargs["pk"])
         post.update(text=new_text)
         response = render_block_to_string("Post.html","text",{"post":post.first()})
