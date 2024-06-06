@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="/static/js/comment_creation.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -39,13 +38,15 @@
          >
           <hr color="green">
           <div id="comments">
-            {% for i in comments %}
-            <hr color="green">
-            <p>{{ i.user }}</p>
-            <p>{{ i.added_at }}</p>
-            <p>{{ i.text }}</p>
-            <hr color="green">
-            {% endfor %}
+              {% block comments %}
+                {% for i in comments %}
+                    <hr color="green">
+                    <p>{{ i.user }}</p>
+                    <p>{{ i.added_at }}</p>
+                    <p>{{ i.text }}</p>
+                    <hr color="green">
+                {% endfor %}
+              {% endblock %}
           </div>
 </body>
 </html>

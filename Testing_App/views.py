@@ -126,21 +126,21 @@ class  CommentPage(TemplateView):
         data=request.POST
         user=User.objects.get(id=self.kwargs["pk"])
         post=Posts.objects.get(id=self.kwargs["pk"])
-        comment = Comments(text=data.get('new_text'), added_at=datetime.datetime.now(), user=user, post=post)
+        text = data.get('text')
+        comment = Comments(text=text, added_at=datetime.datetime.now(), user=user, post=post)
         comment.save()
-        template = render_to_string("comment_base.html", {"comment" : Comments.objects.filter(post=post)})
-        return JsonResponse(template, safe=False)
+        response = render_block_to_string("Post.html","comments", {"comments" : Comments.objects.filter(post=post)})
+        return HttpResponse(response)
 
 #Оновлення поста
 class  UpdatePostPage(TemplateView):
     template_name="Post.html"
     def  post(self,request,**kwargs):
         data=request.POST
-        print(data)
-        new_text=data.get("post")
+        new_text=data.get("text")
         post =  Posts.objects.filter(id=kwargs["pk"])
         post.update(text=new_text)
-        response = render_block_to_string("Post.html","text")
+        response = render_block_to_string("Post.html","text",{"post":post.first()})
         return HttpResponse(response)
 
 #сторінка профілю та його оновлення
