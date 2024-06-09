@@ -48,5 +48,15 @@
                 {% endfor %}
               {% endblock %}
           </div>
+          <dialog id="dialog">
+              <p>You have created new comment!</p>
+          </dialog>
+            <script>
+                var dialog = document.getElementById("dialog");
+                htmx.on('afterSwap', function(){
+                    dialog.show();
+                    setTimeout(function(){dialog.hide()}, 3000);
+                });
+            </script>
 </body>
 </html>
