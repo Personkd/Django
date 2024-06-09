@@ -13,13 +13,33 @@
                     <a href="/login">Увійти в акаунт</a><br>
                     <a href="/registration">Зареєструватися</a>
            {% endif %}
-          <p>{{ name }}</p>
+
+
+
+            <br><br><br><br>
+            <label for="posts">Сортувати публікації за:</label>
+            <select name="posts" id="posts_sorting_tag">
+            <option value="user">Користувачем</option>
+            </select><br>
+            <input id="sorting" type="text" name="text"><br>
+            <input id="sort" type="submit" value = "Сортувати" data-url = "{% url 'comment_creation' %}"
+            hx-trigger="click"
+            hx-post="{% url  '' %}"
+            hx-include="#posts_sorting_tag, #sorting,[name = 'csrfmiddlewaretoken']"
+            hx-target="#posts"
+            >
+
+           <div id="posts">
+           {% block posts %}
            {% for i in form %}
             <hr color="green">
-                <br><p>{{i.user}}</p>
+                <p>{{i.user}}</p>
                 <p>{{i.added_at}}</p>
                 <p>{{i.text}}</p>
                 <a href="/post/{{ i.id }}">Подробиці публікації</a><br>
             <hr color="green">
            {% endfor %}
+           {% endblock %}
+          </div>
+
 {% endblock %}
