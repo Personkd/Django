@@ -21,6 +21,9 @@ class HomePage(ListView):
         template_name="home.html"
         model=Posts
         context_object_name="form"
+        def post(self,request):
+            data = request.POST
+            print(data)
 
 #def usersreg (request):
     #if request.method == 'POST':

@@ -17,14 +17,15 @@
 
 
             <br><br><br><br>
-            <label for="posts">Сортувати публікації за:</label>
-            <select name="posts" id="posts_sorting_tag">
+            <label for="posts_sorting_tag">Сортувати публікації за: </label>
+            <select name="tag" id="posts_sorting_tag">
             <option value="user">Користувачем</option>
-            </select><br>
-            <input id="sorting" type="text" name="text"><br>
-            <input id="sort" type="submit" value = "Сортувати" data-url = "{% url 'comment_creation' %}"
+            </select><br><br>
+
+            <input id="sorting" type="text" placeholder="Введіть фільтр"><br><br>
+            <input id="sort" type="submit" value = "Сортувати" data-url = "{% url 'home' %}"
             hx-trigger="click"
-            hx-post="{% url  '' %}"
+            hx-post="{% url  'home' %}"
             hx-include="#posts_sorting_tag, #sorting,[name = 'csrfmiddlewaretoken']"
             hx-target="#posts"
             >
