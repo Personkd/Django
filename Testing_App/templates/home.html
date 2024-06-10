@@ -23,7 +23,7 @@
             </select><br><br>
 
             <input id="sorting" type="text" placeholder="Введіть фільтр"><br><br>
-            <input id="sort" type="submit" value = "Сортувати" data-url = "{% url 'home' %}"
+            <input id="sort" type="submit" value = "Сортувати"
             hx-trigger="click"
             hx-post="{% url  'home' %}"
             hx-include="#posts_sorting_tag, #sorting,[name = 'csrfmiddlewaretoken']"

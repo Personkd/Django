@@ -21,7 +21,7 @@
           </div>
           {% if  request.user == user %}
                 <input id="text_of_updated_post" type="text" name="post" placeholder="Оновити пост"><br>
-                <input id="update_post" type="submit" value="Зберегти новий текст поста" data-url = "{% url 'post_editing' post.id%}"
+                <input id="update_post" type="submit" value="Зберегти новий текст поста"
                     hx-trigger="click"
                     hx-post="{% url  'post_editing' post.id %}"
                     hx-include="#text_of_updated_post, [name = 'csrfmiddlewaretoken']"
@@ -30,7 +30,7 @@
          {% endif %}<br><br>
          {% csrf_token %}
          <input id="text_of_new_comment" type="text" name="text" placeholder="Коментувати"><br>
-         <input id="create_new_comment" type="submit" value = "Зберегти коментар" data-url = "{% url 'comment_creation' post.id%}"
+         <input id="create_new_comment" type="submit" value = "Зберегти коментар"
             hx-trigger="click"
             hx-post="{% url  'comment_creation' post.id %}"
             hx-include="#text_of_new_comment, [name = 'csrfmiddlewaretoken']"

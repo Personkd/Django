@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
 from .forms import Registration,Login,PostForm,Comments,UpdateProfile
 from  django.contrib.auth import authenticate, login, logout
 from django.views.generic.list import ListView
@@ -11,10 +10,6 @@ from django.views.generic.base import TemplateView
 from render_block import render_block_to_string
 from django.http import JsonResponse, HttpResponse
 import datetime
-
-#def home (request):
-    #a=Posts.objects.all()
-   # return render(request, 'home.html',{"user":request.user,"form":a})
 
 #Домашня сторінка
 class HomePage(ListView):
