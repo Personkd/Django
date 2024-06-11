@@ -11,14 +11,16 @@ from render_block import render_block_to_string
 from django.http import JsonResponse, HttpResponse
 import datetime
 
-#Домашня сторінка
-class HomePage(ListView):
+#Головна сторінка з постами
+class HomePage(TemplateView):
         template_name="home.html"
-        model=Posts
-        context_object_name="form"
         def post(self,request):
             data = request.POST
             print(data)
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context["posts"] = Posts.objects.all()
+            return context
 
 #def usersreg (request):
     #if request.method == 'POST':
