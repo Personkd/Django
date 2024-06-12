@@ -1,9 +1,11 @@
-{% extends 'base.html' %}
-
-{% block load %}
-{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+</head>
+<body>
            {% if user.is_authenticated %}
                     <p>{{user.username}}</p>
                     <a href="/profile/{{ user.id }}">Переглянути профіль</a><br>
@@ -18,15 +20,15 @@
 
             <br><br><br><br>
             <label for="posts_sorting_tag">Сортувати публікації за: </label>
-            <select name="tag" id="posts_sorting_tag">
+            <select name="tag_select" id="posts_sorting_tag">
             <option value="user">Користувачем</option>
             </select><br><br>
 
-            <input id="sorting" type="text" placeholder="Введіть фільтр"><br><br>
+            <input id="sorting" type="text" name="tag_input" placeholder="Введіть фільтр"><br><br>
             <input id="sort" type="submit" value = "Сортувати"
             hx-trigger="click"
             hx-post="{% url  'home' %}"
-            hx-include="#posts_sorting_tag, #sorting,[name = 'csrfmiddlewaretoken']"
+            hx-include="#posts_sorting_tag, #sorting, [name = 'csrfmiddlewaretoken']"
             hx-target="#posts"
             >
 
@@ -42,5 +44,5 @@
            {% endfor %}
            {% endblock %}
           </div>
-
-{% endblock %}
+</body>
+</html>
