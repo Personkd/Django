@@ -34,14 +34,19 @@
 
            <div id="posts">
            {% block posts %}
-           {% for i in post %}
-            <hr color="green">
-                <p>{{i.user}}</p>
-                <p>{{i.added_at}}</p>
-                <p>{{i.text}}</p>
-                <a href="/post/{{ i.id }}">Подробиці публікації</a><br>
-            <hr color="green">
-           {% endfor %}
+           {% if posts == None %}
+                    <hr color="red">
+                    <p>За таким іменем користувача не знайдено жодного поста</p>
+                    <hr color="red">
+           {% else %}
+                {% for i in post %}
+                    <hr color="green">
+                        <p>{{i.user}}</p>
+                        <p>{{i.added_at}}</p>
+                        <p>{{i.text}}</p>
+                        <a href="/post/{{ i.id }}">Подробиці публікації</a><br>
+                    <hr color="green">
+                {% endfor %}
            {% endblock %}
           </div>
 </body>

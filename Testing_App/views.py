@@ -21,7 +21,17 @@ class HomePage(TemplateView):
             select_input = data.get("tag_input")
             if select_tag == 'user':
                 user = User.objects.get(username = select_input)
-                posts = Posts.objects.get(user = user)
+                if select_input is None:
+                    usernames = []
+                    posts=[]
+                    for i in Posts.objects.all():
+                        usernames.append(i.username)
+                    usernames.sort()
+                    for i in usernames:
+                        for j in (Posts.objects.filter(username=i)):
+                            posts.append(j)
+                else:
+                        posts = Posts.objects.get(user=user)
             response = render_block_to_string("home.html", "posts", {"post": posts})
             return HttpResponse(response)
         def get_context_data(self, **kwargs):
